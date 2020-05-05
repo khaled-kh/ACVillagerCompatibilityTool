@@ -5,4 +5,8 @@ Based on the official guide released by Nintendo in 2012, this basic utility aim
 
 **Requires:** Python 2.0 or later
 
-**Use:** python path/to/relationship.py path/to/acnh.json *name_1* *name_2*
+**Use:** python ../relationship.py ../acnh.json *name_1* *name_2*
+
+**Test:** python ../relationship.py ../acnh.json marshal raymond
+
+**Output:** Marshal + Raymond = [♥,♣,♥] (Relationship: Good, Score: 12)
