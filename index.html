@@ -1,0 +1,148 @@
+<html>
+<head>
+    <title>AC Villager Relationship Calculator</title>
+    <script type="text/javascript" src="ACVillagerCompat.js"></script>
+    <script>
+        function init()
+        {
+            orderAlpha();
+            fillSelect('name1');
+            fillSelect('name2');
+            fillSelect('name3');
+        }
+
+        function fillSelect(selectorId)
+        {
+            var select = document.getElementById(selectorId);
+            for(var i = 0; i < data.length; i++) {
+                var op = document.createElement("option");
+                op.textContent = data[i]['Name'];
+                op.value = data[i]['Name'];
+                select.appendChild(op);
+            }
+        }
+
+        function match_villagers()
+        {
+            var name1 = document.getElementById('name1').value;
+            var name2 = document.getElementById('name2').value;
+            var a = getVillager(name1);
+            var b = getVillager(name2);
+            var r = getCompatibility(a,b);
+            var cons = getConsensus(r);
+            var scor = getScore(r);
+            var result = scor +" "+ cons;
+            document.getElementById('result1').value = result;
+        }
+
+        function clearChildren(elementId)
+        {
+            const myNode = document.getElementById(elementId);
+            while (myNode.lastElementChild) {
+                myNode.removeChild(myNode.lastElementChild);
+            }
+        }
+
+        function top_matches()
+        {
+            clearChildren('tbody1');
+            var option1 = document.getElementById('option1').value;
+            var name3 = document.getElementById('name3').value;
+            var c = getVillager(name3);
+            var l = findTop(c,option1);
+            const tbody1 = document.getElementById('tbody1');
+            for (var i = 0; i < l.length; i++)
+            {
+                var tr1 = document.createElement('tr');
+                var td1 = document.createElement('td');
+                td1.innerText = l[i];
+                tr1.appendChild(td1);
+                tbody1.appendChild(tr1);
+            }
+        }
+    </script>
+    <style>
+        body {
+        background-image: url("bg.gif");
+        background-repeat: repeat;
+        background-size: auto;
+        background-color: rgba(255,255,255,0.7);
+        background-blend-mode: lighten;
+        }
+        table.blueTable {
+        font-family: Tahoma, Geneva, sans-serif;
+        background-color: rgba(255, 255, 255, 0.7);
+        width: 100%;
+        max-width: 24em;
+        text-align: center;
+        border-collapse: collapse;
+        }
+        table.blueTable td, table.blueTable th {
+        padding: 3px 2px;
+        }
+        table.blueTable tbody td {
+        font-size: 14pt;
+        }
+        table.blueTable tr:nth-child(even) {
+        background: rgba(209, 228, 245, 0.6);
+        }
+        table.blueTable thead {
+        background: rgba(28, 110, 164, 0.7);
+        }
+        table.blueTable thead th {
+        font-size: 16pt;
+        font-weight: normal;
+        color: #FFFFFF;
+        text-align: center;
+        }
+        table.blueTable tfoot .links a{
+        display: inline-block;
+        background: #1C6EA4;
+        color: #FFFFFF;
+        padding: 2px 8px;
+        border-radius: 5px;
+        }
+    </style>
+</head>
+<body onload="init()">
+    <div style="width: 100%;"><h2>
+            Animal Crossing - Villager Relationship Calculator
+    </h2></div>
+    <div style="width: 100%;"><h3>
+        Match two villagers
+    </h3></div>
+    <div style="width: 100%;">
+        <select style="font-size:12pt;min-width:150px;" id="name1"></select>
+        + <select style="font-size:12pt;min-width:150px;" id="name2"></select>
+    </div><div style="width: 100%;padding-top:10px;">
+        = <input style="font-size:12pt;" type="text" id="result1" disabled="true"/>
+        <button style="font-size:12pt;min-width:100px;" onclick="match_villagers()">Match</button>
+    </div>
+    <div style="width: 100%;"><h3>
+        Top matches for a villager
+    </h3></div>
+    <div style="width: 100%;">
+        <select style="font-size:12pt;min-width:150px;" id="name3"></select>
+        <button style="font-size:12pt;min-width:100px;" onclick="top_matches()">Match</button>
+        <select style="font-size:12pt;min-width:150px;" id="option1">
+            <option>Best</option>
+            <option>Average</option>
+            <option>Worst</option>
+        </select>
+    </div>
+    <div style="width: 100%;padding-top:20px;">
+        <table class="blueTable">
+            <thead>
+              <tr><th>TOP MATCHES</th></tr>
+            </thead>
+            <tbody id="tbody1">
+              <tr><td>&nbsp;</td></tr>
+              <tr><td>&nbsp;</td></tr>
+              <tr><td>&nbsp;</td></tr>
+              <tr><td>&nbsp;</td></tr>
+              <tr><td>&nbsp;</td></tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
